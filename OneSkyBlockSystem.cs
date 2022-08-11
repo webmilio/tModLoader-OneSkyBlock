@@ -13,7 +13,7 @@ namespace OneSkyBlock
 {
 	public class OneSkyBlockTile : GlobalTile
     {
-		static readonly Dictionary<short, double> scaleOreWeight = new()
+		static readonly Dictionary<short, double> scaleItemWeight = new()
 		{
 			{ ItemID.CopperOre, 0 },
 			{ ItemID.TinOre, 0 },
@@ -34,7 +34,20 @@ namespace OneSkyBlock
 			{ ItemID.TitaniumOre, 0 },
 			{ ItemID.AdamantiteOre, 0 },
 			{ ItemID.ChlorophyteOre, 0 },
-			{ ItemID.LunarOre, 0 }
+			{ ItemID.LunarOre, 0 },
+			{ ItemID.WaterBucket, 0 }
+		};
+		static readonly Dictionary<short, int> blockMultiplier = new()
+		{
+			{ ItemID.DirtBlock, 10 },
+            { ItemID.StoneBlock, 5 },
+			{ ItemID.Wood, 5},
+			{ ItemID.WaterBucket, 5 },
+			{ ItemID.SandBlock, 3 },
+			{ ItemID.MudBlock, 3 },
+			{ ItemID.SnowBlock, 2 },
+			{ ItemID.ClayBlock, 2 },
+			{ ItemID.IceBlock, 2 },
 		};
 		public override bool Drop(int i, int j, int type)
         {
@@ -47,7 +60,8 @@ namespace OneSkyBlock
 			}
 			return true;
         }
-        public override bool KillSound(int i, int j, int type) // Disable mining sound for skyblock, it's annoying
+
+        public override bool KillSound(int i, int j, int type, bool fail) // Disable mining sound for skyblock, it's annoying
         {
 			int playerCount = ModContent.GetInstance<OneSkyBlockConfig>().OneBlockMultiplayer ? Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active) : 1;
 			for (int p = 0; p < playerCount; p++)
@@ -64,30 +78,32 @@ namespace OneSkyBlock
 			for (int p = 0; p < playerCount; p++)
 			{
 				//noItem = true;
+				
 				if (i == (Main.spawnTileX + (p * 5)) && j == Main.spawnTileY && fail == false)
 				{
-					WeightedRandomBag<int> skyDrops = new();
+					effectOnly = true;
+					WeightedRandomBag<short> skyDrops = new();
                     
 					if (NPC.downedBoss1 == false || NPC.downedSlimeKing == false) // Eye of Cthulu not killed
 					{	// Basic blocks
 						skyDrops.AddEntry(ItemID.DirtBlock, 2.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.StoneBlock, 2.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Wood, 2.0 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.HardenedSand, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
+						skyDrops.AddEntry(ItemID.SandBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.ClayBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.MudBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SnowBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.IceBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Cobweb, 0.5 * ModSkyBlockConfig.OneBlockItemsRate);
 						// Ores
-						skyDrops.AddEntry(ItemID.CopperOre, 2.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.CopperOre]);
-						skyDrops.AddEntry(ItemID.TinOre, 2.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.TinOre]);
-						skyDrops.AddEntry(ItemID.IronOre, 1.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.IronOre]);
-						skyDrops.AddEntry(ItemID.LeadOre, 1.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.LeadOre]);
-						skyDrops.AddEntry(ItemID.SilverOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.SilverOre]);
-						skyDrops.AddEntry(ItemID.TungstenOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.TungstenOre]);
-						skyDrops.AddEntry(ItemID.GoldOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.GoldOre]);
-						skyDrops.AddEntry(ItemID.PlatinumOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.PlatinumOre]);
+						skyDrops.AddEntry(ItemID.CopperOre, 2.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.CopperOre]);
+						skyDrops.AddEntry(ItemID.TinOre, 2.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TinOre]);
+						skyDrops.AddEntry(ItemID.IronOre, 1.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.IronOre]);
+						skyDrops.AddEntry(ItemID.LeadOre, 1.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.LeadOre]);
+						skyDrops.AddEntry(ItemID.SilverOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.SilverOre]);
+						skyDrops.AddEntry(ItemID.TungstenOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TungstenOre]);
+						skyDrops.AddEntry(ItemID.GoldOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.GoldOre]);
+						skyDrops.AddEntry(ItemID.PlatinumOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.PlatinumOre]);
 						// Gems
 						skyDrops.AddEntry(ItemID.Amethyst, 0.2 * ModSkyBlockConfig.OneBlockGemRate);
 						skyDrops.AddEntry(ItemID.Topaz, 0.18 * ModSkyBlockConfig.OneBlockGemRate);
@@ -97,6 +113,14 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.Diamond, 0.1 * ModSkyBlockConfig.OneBlockGemRate);
 						skyDrops.AddEntry(ItemID.Amber, 0.1 * ModSkyBlockConfig.OneBlockGemRate);
 						// Seeds
+						skyDrops.AddEntry(ItemID.Cactus, 0.06 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.BlinkrootSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.DaybloomSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.DeathweedSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.FireblossomSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.MoonglowSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.ShiverthornSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.WaterleafSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.GrassSeeds, 0.1 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.JungleGrassSeeds, 0.1 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.MushroomGrassSeeds, 0.1 * ModSkyBlockConfig.OneBlockSeedsRate);
@@ -105,11 +129,11 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.HallowedSeeds, 0.01 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.Acorn, 0.25 * ModSkyBlockConfig.OneBlockSeedsRate);
 						//Buckets
-						skyDrops.AddEntry(ItemID.WaterBucket, 0.3 * ModSkyBlockConfig.OneBlockLiquidsRate);
+						skyDrops.AddEntry(ItemID.WaterBucket, 0.3 * ModSkyBlockConfig.OneBlockLiquidsRate + scaleItemWeight[ItemID.WaterBucket]);
 						skyDrops.AddEntry(ItemID.LavaBucket, 0.1 * ModSkyBlockConfig.OneBlockLiquidsRate);
 						// Misc
 						skyDrops.AddEntry(ItemID.Cloud, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.SandBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
+						skyDrops.AddEntry(ItemID.HardenedSand, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SiltBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SlushBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Cactus, 0.1 * ModSkyBlockConfig.OneBlockBlockRate);
@@ -169,21 +193,21 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.DirtBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.StoneBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Wood, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.HardenedSand, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
+						skyDrops.AddEntry(ItemID.SandBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.ClayBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.MudBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SnowBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.IceBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Cobweb, 0.5 * ModSkyBlockConfig.OneBlockItemsRate);
 						// Ores
-						skyDrops.AddEntry(ItemID.CopperOre, 0.25 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.CopperOre]);
-						skyDrops.AddEntry(ItemID.TinOre, 0.25 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.TinOre]);
-						skyDrops.AddEntry(ItemID.IronOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.IronOre]);
-						skyDrops.AddEntry(ItemID.LeadOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.LeadOre]);
-						skyDrops.AddEntry(ItemID.SilverOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.SilverOre]);
-						skyDrops.AddEntry(ItemID.TungstenOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.TungstenOre]);
-						skyDrops.AddEntry(ItemID.GoldOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.GoldOre]);
-						skyDrops.AddEntry(ItemID.PlatinumOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.PlatinumOre]);
+						skyDrops.AddEntry(ItemID.CopperOre, 0.25 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.CopperOre]);
+						skyDrops.AddEntry(ItemID.TinOre, 0.25 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TinOre]);
+						skyDrops.AddEntry(ItemID.IronOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.IronOre]);
+						skyDrops.AddEntry(ItemID.LeadOre, 0.5 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.LeadOre]);
+						skyDrops.AddEntry(ItemID.SilverOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.SilverOre]);
+						skyDrops.AddEntry(ItemID.TungstenOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TungstenOre]);
+						skyDrops.AddEntry(ItemID.GoldOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.GoldOre]);
+						skyDrops.AddEntry(ItemID.PlatinumOre, 1.0 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.PlatinumOre]);
 						// Gems
 						skyDrops.AddEntry(ItemID.Amethyst, 0.1 * ModSkyBlockConfig.OneBlockGemRate);
 						skyDrops.AddEntry(ItemID.Topaz, 0.09 * ModSkyBlockConfig.OneBlockGemRate);
@@ -193,6 +217,14 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.Diamond, 0.05 * ModSkyBlockConfig.OneBlockGemRate);
 						skyDrops.AddEntry(ItemID.Amber, 0.05 * ModSkyBlockConfig.OneBlockGemRate);
 						// Seeds
+						skyDrops.AddEntry(ItemID.Cactus, 0.06 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.BlinkrootSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.DaybloomSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.DeathweedSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.FireblossomSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.MoonglowSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.ShiverthornSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
+						skyDrops.AddEntry(ItemID.WaterleafSeeds, 0.02 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.GrassSeeds, 0.05 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.JungleGrassSeeds, 0.05 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.MushroomGrassSeeds, 0.05 * ModSkyBlockConfig.OneBlockSeedsRate);
@@ -201,12 +233,12 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.HallowedSeeds, 0.1 * ModSkyBlockConfig.OneBlockSeedsRate);
 						skyDrops.AddEntry(ItemID.Acorn, 0.2 * ModSkyBlockConfig.OneBlockSeedsRate);
 						// Buckets
-						skyDrops.AddEntry(ItemID.WaterBucket, 0.3 * ModSkyBlockConfig.OneBlockLiquidsRate);
+						skyDrops.AddEntry(ItemID.WaterBucket, 0.3 * ModSkyBlockConfig.OneBlockLiquidsRate + scaleItemWeight[ItemID.WaterBucket]);
 						skyDrops.AddEntry(ItemID.LavaBucket, 0.2 * ModSkyBlockConfig.OneBlockLiquidsRate);
-                        //skyDrops.AddEntry(ItemID.HoneyBucket, 0.1 * ModSkyBlockConfig.OneBlockLiquidsRate);
+                        skyDrops.AddEntry(ItemID.HoneyBucket, 0.1 * ModSkyBlockConfig.OneBlockLiquidsRate);
                         // Misc
                         skyDrops.AddEntry(ItemID.Cloud, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.SandBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
+						skyDrops.AddEntry(ItemID.HardenedSand, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SiltBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SlushBlock, 0.5 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Cactus, 0.1 * ModSkyBlockConfig.OneBlockBlockRate);
@@ -302,10 +334,10 @@ namespace OneSkyBlock
 					if (NPC.downedBoss2)
 					{
 						// Unlockable hardmode ores for 
-						skyDrops.AddEntry(ItemID.DemoniteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.DemoniteOre]);
-						skyDrops.AddEntry(ItemID.CrimtaneOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.CrimtaneOre]);
+						skyDrops.AddEntry(ItemID.DemoniteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.DemoniteOre]);
+						skyDrops.AddEntry(ItemID.CrimtaneOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.CrimtaneOre]);
 						skyDrops.AddEntry(ItemID.EbonstoneBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.Meteorite, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.Meteorite]);
+						skyDrops.AddEntry(ItemID.Meteorite, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.Meteorite]);
 						skyDrops.AddEntry(ItemID.Obsidian, 0.75 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.CrimstoneBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						//skyDrops.AddEntry(ItemID.BlueBrickWall, 0.5);
@@ -318,25 +350,25 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.Granite, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.Sandstone, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.AshBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
-						skyDrops.AddEntry(ItemID.Hellstone, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.Hellstone]);
+						skyDrops.AddEntry(ItemID.Hellstone, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.Hellstone]);
 					}
 					if (NPC.downedBoss2 && NPC.downedBoss3 && Main.hardMode)
 					{
-						skyDrops.AddEntry(ItemID.CobaltOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.CobaltOre]);
-						skyDrops.AddEntry(ItemID.PalladiumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.PalladiumOre]);
+						skyDrops.AddEntry(ItemID.CobaltOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.CobaltOre]);
+						skyDrops.AddEntry(ItemID.PalladiumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.PalladiumOre]);
 						skyDrops.AddEntry(ItemID.PearlstoneBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 
 					}
 					if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2)
 					{
-						skyDrops.AddEntry(ItemID.MythrilOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.MythrilOre]);
-						skyDrops.AddEntry(ItemID.OrichalcumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.OrichalcumOre]);
+						skyDrops.AddEntry(ItemID.MythrilOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.MythrilOre]);
+						skyDrops.AddEntry(ItemID.OrichalcumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.OrichalcumOre]);
 					}
 					if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
 					{
-						skyDrops.AddEntry(ItemID.TitaniumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.TitaniumOre]);
-						skyDrops.AddEntry(ItemID.AdamantiteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.AdamantiteOre]);
-						skyDrops.AddEntry(ItemID.ChlorophyteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.ChlorophyteOre]);
+						skyDrops.AddEntry(ItemID.TitaniumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TitaniumOre]);
+						skyDrops.AddEntry(ItemID.AdamantiteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.AdamantiteOre]);
+						skyDrops.AddEntry(ItemID.ChlorophyteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.ChlorophyteOre]);
 					}
 					if (Main.hardMode && NPC.downedPlantBoss)
 					{
@@ -353,67 +385,68 @@ namespace OneSkyBlock
 					}
 					if (Main.hardMode && NPC.downedMoonlord)
 					{
-						skyDrops.AddEntry(ItemID.LunarOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleOreWeight[ItemID.LunarOre]);
+						skyDrops.AddEntry(ItemID.LunarOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.LunarOre]);
 					}
 
 					if (ModSkyBlockConfig.OneBlockCustomDrops.Count > 0)
 						foreach (var customItem in ModSkyBlockConfig.OneBlockCustomDrops)
 						{
-							skyDrops.AddEntry(customItem.Type, ModSkyBlockConfig.OneBlockCustomRate);
+							skyDrops.AddEntry((short)customItem.Type, ModSkyBlockConfig.OneBlockCustomRate);
 						}
 
-					int dropTile = skyDrops.GetRandom();
+					short dropTile = skyDrops.GetRandom();
 
 					if (ModSkyBlockConfig.OneBlockOreRate > 0)
 					{
-						foreach (var oreProgress in scaleOreWeight)
+						foreach (var oreProgress in scaleItemWeight)
 						{
 							//Main.NewText(ItemID.Search.GetName(oreProgress.Key) + " increased: " + oreProgress.Value);
-							scaleOreWeight[oreProgress.Key] += ModSkyBlockConfig.OneBlockOreRate / 400;
+							scaleItemWeight[oreProgress.Key] += ModSkyBlockConfig.OneBlockOreRate / 400;
 							if (dropTile == oreProgress.Key)
 							{
-								scaleOreWeight[oreProgress.Key] = 0;
+								scaleItemWeight[oreProgress.Key] = 0;
 								//Main.NewText(ItemID.Search.GetName(oreProgress.Key) + " was reset, accumulation: " + oreProgress.Value);
 							}
 
 						}
 					}
-
 					WeightedRandomBag<int> quantityCount = new();
+					WeightedRandomBag<int> quantityCountMult = new();
 					int maxDrop = ModSkyBlockConfig.OneBlockMaxDrops;
 					for (int d = 1; d <= maxDrop; d++)
 					{
 						quantityCount.AddEntry(d, (double)(100 / d) / d);
 					}
-					Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 8, 8, dropTile, quantityCount.GetRandom());
+					if (blockMultiplier.ContainsKey(dropTile))
+                    {
+						for (int d = 1; d <= blockMultiplier[dropTile]; d++)
+						{
+							quantityCountMult.AddEntry(d, (double)(10 / d) / d);
+						}
+					}
+                    else
+                    {
+						quantityCountMult.AddEntry(1, 1);
+					}
+					//if (Main.netMode == NetmodeID.MultiplayerClient)
+					//               {
+					//	Main.LocalPlayer.QuickSpawnItem(new EntitySource_TileBreak(i, j), dropTile, quantityCount.GetRandom() * quantityCountBlockMult.GetRandom());
+					//               }
+                    if (Main.netMode != NetmodeID.MultiplayerClient)
+                    {
+						Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 8, 8, dropTile, quantityCount.GetRandom() * quantityCountMult.GetRandom());
+					}
 				}
 			}
-
 			//int playerCount = Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active);
-			
 			for (int p = 0; p < playerCount; p++)
 			{
-				
 				Tile cloudTile = Framing.GetTileSafely(Main.spawnTileX + (p * 5), Main.spawnTileY); //Tile cloudTile = new();
 				if (!cloudTile.HasTile)
 				{
-					if (Main.netMode == NetmodeID.SinglePlayer)
-                    {
-						WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
-						if (ModSkyBlockConfig.OneBlockDebug)
-						{
-							Main.NewText("[" + i + " " + j + "] ID: " + type + " Break: " + fail + " Effect: " + effectOnly + " Item: " + noItem + " PlrCount: " + playerCount, Color.White);
-						}
-					}
-					else // Multiplayer new block
-					{
-						WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
-						NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud);
-						if (ModSkyBlockConfig.OneBlockDebug)
-						{
-							ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("[" + i + " " + j + "] ID: " + type + " Break: " + fail + " Effect: " + effectOnly + " Item: " + noItem + " PlrCount: " + playerCount), Color.White);
-						}
-					}
+					WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
+					NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud);
+					//ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("[" + i + " " + j + "] ID: " + type + " Break: " + fail + " Effect: " + effectOnly + " Item: " + noItem + " PlrCount: " + playerCount), Color.White);
                 }
 			}
 		}
@@ -427,19 +460,16 @@ namespace OneSkyBlock
 			if (context == "bossBag" && arg == ItemID.PlanteraBossBag)
             {
 				if (!ModContent.GetInstance<OneSkyBlockConfig>().GenerateTemple)
-					
 					player.QuickSpawnItem(source, ItemID.LihzahrdAltar, 1);
 			}
-        }
+		}
     }
 	public class OneSkyBlockShop : GlobalNPC
 	{
         public override void SetupShop(int type, Chest shop, ref int nextSlot)
         {
 			if (type == NPCID.Merchant)
-            {
 				shop.item[nextSlot++].SetDefaults(ItemID.Extractinator);
-            }
         }
 	}
 
@@ -454,15 +484,8 @@ namespace OneSkyBlock
 				Tile cloudTile = Framing.GetTileSafely(Main.spawnTileX + (p * 5), Main.spawnTileY);
 				if (!cloudTile.HasTile)
 				{
-					if (Main.netMode != NetmodeID.SinglePlayer)
-					{
-						WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
-						NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud);
-					}
-					else
-					{
-						WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
-					}
+					WorldGen.PlaceTile(Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud, false);
+					NetMessage.SendData(MessageID.TileManipulation, -1, -1, null, 1, Main.spawnTileX + (p * 5), Main.spawnTileY, TileID.Cloud);
 				}
 			}
 		}
