@@ -8,10 +8,13 @@ namespace OneSkyBlock.Items
 {
 	public class CraftableDemonAltar : ModItem
 	{
+        public override void SetStaticDefaults()
+        {
+			DisplayName.SetDefault("Craftable Demon Altar");//Language.GetTextValue("Mods.OneSkyBlock.CraftableAltar.DisplayName"));
+			Tooltip.SetDefault("Will not drop anything if you break it!");//Language.GetTextValue("Mods.OneSkyBlock.CraftableAltar.Tooltip"));
+		}
 		public override void SetDefaults()
 		{
-			DisplayName.SetDefault(Language.GetTextValue("Mods.OneSkyBlock.CraftableAltar.DisplayName"));
-			Tooltip.SetDefault(Language.GetTextValue("Mods.OneSkyBlock.CraftableAltar.Tooltip"));
 			TileObjectData.newTile.FullCopyFrom(TileID.DemonAltar);
 			Item.maxStack = 99;
 			Item.useTurn = true;
@@ -28,7 +31,7 @@ namespace OneSkyBlock.Items
 
         public override void AddRecipes()
         {
-			CreateRecipe()
+			Recipe.Create(TileID.DemonAltar)
 				.AddIngredient(ItemID.EbonstoneBlock, 15)
 				.AddIngredient(ItemID.RottenChunk, 10)
 				.AddIngredient(ItemID.Deathweed, 5)
@@ -37,7 +40,7 @@ namespace OneSkyBlock.Items
 				.AddTile(TileID.WorkBenches)
 				.Register();
 
-			CreateRecipe()
+			Recipe.Create(TileID.DemonAltar)
 				.AddIngredient(ItemID.CrimstoneBlock, 15)
 				.AddIngredient(ItemID.Vertebrae, 10)
 				.AddIngredient(ItemID.Deathweed, 5)
@@ -45,11 +48,11 @@ namespace OneSkyBlock.Items
 				.AddIngredient(ItemID.ThornsPotion, 1)
 				.AddTile(TileID.WorkBenches)
 				.Register();
-			//Recipe recipe = CreateRecipe(ItemID.Zenith);
-			//recipe.AddIngredient(ItemID.Wood, 6);
-			//recipe.AddTile(TileID.WorkBenches);
-			//recipe.Register();
+            //Recipe recipe = CreateRecipe(ItemID.Zenith);
+            //recipe.AddIngredient(ItemID.Wood, 6);
+            //recipe.AddTile(TileID.WorkBenches);
+            //recipe.Register();
 
-		}
+        }
 	}
 }
