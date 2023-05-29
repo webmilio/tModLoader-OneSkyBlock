@@ -1,14 +1,14 @@
-using Terraria.WorldBuilding;
-using System.Collections.Generic;
-using Terraria;
-using Terraria.GameContent.Generation;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.IO;
 using System;
 using System.Threading;
 using System.Linq;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.ID;
+using Terraria.IO;
+using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.WorldBuilding;
+using Terraria.GameContent.Generation;
 
 namespace OneSkyBlock
 {
@@ -32,133 +32,13 @@ namespace OneSkyBlock
         public override void PostSetupContent()
         {
             ModLoader.TryGetMod("HEROsMod", out Mod HEROsMod);
-            if (HEROsMod != null)
-            {
-                HEROsMod.Call(
+            HEROsMod?.Call(
                     "AddPermission",
                     ModifyOneSkyBlockConfig_Permission,
                     ModifyOneSkyBlockConfig_Display
                 );
-            }
         }
-        public override void AddRecipes() // Recipes for uncraftable items (may need balancing changes)
-        {
-            Recipe.Create(ItemID.Hellforge)
-                .AddIngredient(ItemID.Hellstone, 15)
-                .AddIngredient(ItemID.Obsidian, 10)
-                .AddIngredient(ItemID.LavaBucket, 2)
-                .AddIngredient(ItemID.Furnace, 1)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
-            Recipe.Create(ItemID.GuideVoodooDoll)
-                .AddIngredient(ItemID.FamiliarWig)
-                .AddIngredient(ItemID.FamiliarShirt)
-                .AddIngredient(ItemID.FamiliarPants)
-                .AddIngredient(ItemID.Silk, 2)
-                .AddIngredient(ItemID.AshBlock, 1)
-                .AddTile(TileID.Loom)
-                .Register();
-            Recipe.Create(ItemID.LivingLoom)
-                .AddIngredient(ItemID.Wood, 10)
-                .AddIngredient(ItemID.WhiteString)
-                .AddTile(TileID.WorkBenches)
-                .Register();
-            Recipe.Create(ItemID.LihzahrdAltar)
-                .AddIngredient(ItemID.LihzahrdBrick, 15)
-                .AddIngredient(ItemID.FallenStar, 10)
-                .AddIngredient(ItemID.HellstoneBar, 5)
-                .AddIngredient(ItemID.ChlorophyteBar, 5)
-                .AddTile(TileID.AdamantiteForge)
-                .Register();
-            Recipe.Create(ItemID.LihzahrdPowerCell)
-                .AddIngredient(ItemID.LeadBar, 5)
-                .AddIngredient(ItemID.GoldBar, 5)
-                .AddIngredient(ItemID.LihzahrdBrick, 3)
-                .AddIngredient(ItemID.FallenStar, 1)
-                .AddIngredient(ItemID.ChlorophyteBar, 1)
-                .AddTile(TileID.AdamantiteForge)
-                .Register();
-            Recipe.Create(ItemID.WoodenCrate)
-                .AddIngredient(ItemID.Wood, 25)
-                .AddIngredient(ItemID.CopperBar, 3)
-                .AddIngredient(ItemID.TinBar, 3)
-                .AddIngredient(ItemID.Amethyst, 1)
-                .AddTile(TileID.WorkBenches)
-                .Register();
-            Recipe.Create(ItemID.IronCrate)
-                .AddIngredient(ItemID.IronBar, 10)
-                .AddIngredient(ItemID.LeadBar, 5)
-                .AddIngredient(ItemID.Topaz, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.GoldenCrate)
-                .AddIngredient(ItemID.GoldBar, 10)
-                .AddIngredient(ItemID.PlatinumBar, 5)
-                .AddIngredient(ItemID.Sapphire, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.JungleFishingCrate)
-                .AddIngredient(ItemID.MudBlock, 30)
-                .AddIngredient(ItemID.JungleGrassSeeds, 3)
-                .AddIngredient(ItemID.Moonglow, 1)
-                .AddIngredient(ItemID.Emerald, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.CorruptFishingCrate)
-                .AddIngredient(ItemID.EbonstoneBlock, 25)
-                .AddIngredient(ItemID.DemoniteBar, 10)
-                .AddIngredient(ItemID.RottenChunk, 5)
-                .AddIngredient(ItemID.Topaz, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.CrimsonFishingCrate)
-                .AddIngredient(ItemID.CrimstoneBlock, 25)
-                .AddIngredient(ItemID.CrimtaneBar, 10)
-                .AddIngredient(ItemID.Vertebrae, 5)
-                .AddIngredient(ItemID.Topaz, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.FloatingIslandFishingCrate)
-                .AddIngredient(ItemID.Cloud, 25)
-                .AddIngredient(ItemID.Feather, 5)
-                .AddIngredient(ItemID.Diamond, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.DungeonFishingCrate)
-                .AddIngredient(ItemID.Bone, 20)
-                .AddIngredient(ItemID.Obsidian, 10)
-                .AddIngredient(ItemID.Meteorite, 10)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.OceanCrate)
-                .AddIngredient(ItemID.SandBlock, 30)
-                .AddIngredient(ItemID.WaterBucket, 10)
-                .AddIngredient(ItemID.BouncyGlowstick, 5)
-                .AddIngredient(ItemID.Fish, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.HallowedFishingCrateHard)
-                .AddIngredient(ItemID.PearlstoneBlock, 30)
-                .AddIngredient(ItemID.PixieDust, 5)
-                .AddIngredient(ItemID.UnicornHorn, 5)
-                .AddCondition(NetworkText.FromLiteral("after hardmode"), r => Main.hardMode)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.OasisCrate)
-                .AddIngredient(ItemID.SandBlock, 40)
-                .AddIngredient(ItemID.HardenedSand, 20)
-                .AddIngredient(ItemID.Cactus, 5)
-                .AddIngredient(ItemID.AntlionMandible, 1)
-                .AddTile(TileID.Anvils)
-                .Register();
-            Recipe.Create(ItemID.LifeFruit)
-                .AddIngredient(ItemID.HallowedBar, 5)
-                .AddIngredient(ItemID.LifeCrystal, 2)
-                .AddIngredient(ItemID.JungleFishingCrate, 1)
-                .AddCondition(NetworkText.FromLiteral("any mechanical boss defeated"), r => NPC.downedMechBossAny)
-                .Register();
-        }
-    } //.AddCondition(NetworkText.FromLiteral("downedMechBossAny"), r => NPC.downedMechBossAny)
+    }
     class WeightedRandomBag<T>
     {
         private struct Entry
@@ -189,9 +69,10 @@ namespace OneSkyBlock
             return default;
         }
     }
+
     public class OneSkyBlockResetWorld : ModSystem
     {
-        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
             foreach (var genTask in tasks)
             {
@@ -252,65 +133,113 @@ namespace OneSkyBlock
             WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY, TileID.Cloud, false, false);
             Thread.Sleep(500); // lol
             Random rand = new();
-            int next = (int)(Main.GlobalTimeWrappedHourly);
+            int dungeonSide = Main.dungeonX < Main.maxTilesX / 2 ? -1 : 1;
+            //int next = (int)(Main.GlobalTimeWrappedHourly);
 
             if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateIslands)
             {
-                progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateIslands");
-                progress.Set(0.2f);
-                List<int> randomX = new();
-                List<int> islandX = randomX.OrderBy(a => Guid.NewGuid()).ToList();
-
-                randomX.Add((int)(Main.spawnTileX / (1.11 + (rand.NextDouble() / 3))));
-                randomX.Add((int)(Main.spawnTileX / (2 + (rand.NextDouble() / 2))));
-                randomX.Add((int)(Main.spawnTileX * (1.1 + (rand.NextDouble() / 3))));
-                randomX.Add((int)(Main.spawnTileX * (1.5 + (rand.NextDouble() / 2))));
-
-                double islandY1 = Main.spawnTileY / (2 + (rand.NextDouble() * 2));
-                double islandY2 = Main.spawnTileY / (2 + (rand.NextDouble() * 2));
-                double islandY3 = Main.spawnTileY / (2 + (rand.NextDouble() * 2));
-                double islandY4 = Main.spawnTileY / (2 + (rand.NextDouble() * 2));
-
-                foreach (var islandTask in islandX)
+                progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateIslands")} (1/2)";
+                progress.Set(0.3f);
+                var islandSuccess = false;
+                var totalAttempts = 0;
+                while (!islandSuccess && totalAttempts < 100000)
                 {
-                    Console.WriteLine("Island: {0}", islandTask);
+                    List<int> randomX = new()
+                    {
+                        (int)(Main.spawnTileX / (1.11 + (rand.NextDouble() / 3))),
+                        (int)(Main.spawnTileX / (2 + (rand.NextDouble() / 2))),
+                        (int)(Main.spawnTileX * (1.1 + (rand.NextDouble() / 3))),
+                        (int)(Main.spawnTileX * (1.5 + (rand.NextDouble() / 2)))
+                    };
+                    List<int> islandX = randomX.OrderBy(a => Guid.NewGuid()).ToList();
+
+                    int islandY1 = (int)(Main.spawnTileY / (2 + (rand.NextDouble() * 2)));
+                    int islandY2 = (int)(Main.spawnTileY / (2 + (rand.NextDouble() * 2)));
+                    int islandY3 = (int)(Main.spawnTileY / (2 + (rand.NextDouble() * 2)));
+                    int islandY4 = (int)(Main.spawnTileY / (2 + (rand.NextDouble() * 2)));
+
+                    //static IEnumerable<int> AdjacentTiles(int i, int j)
+                    //{
+                    //    for (int x = i - 100; x <= i + 100; x++)
+                    //        for (int y = j - 100; y <= j + 100; y++)
+                    //            if (x != i || y != j && Framing.GetTileSafely(x, y).HasTile)
+                    //                yield return Framing.GetTileSafely(x, y).TileType;
+                    //}
+                    foreach (var islandTask in islandX)
+                    {
+                        Console.WriteLine("Island: {0}", islandTask);
+                    }
+                    try
+                    {
+                        WorldGen.CloudIsland(islandX[0], islandY1);
+                        //if (AdjacentTiles(islandX[0], islandY1).Contains(TileID.Dirt))
+                        //{
+                        //    WorldGen.PlaceTile(islandX[0], islandY1, TileID.Grass);
+                        //    WorldGen.SpreadGrass(islandX[0], islandY1);
+                        //}
+                        WorldGen.IslandHouse(islandX[0], islandY1, 2);
+
+                        WorldGen.DesertCloudIsland(islandX[1], islandY2);
+                        WorldGen.IslandHouse(islandX[1], islandY2, 3);
+
+                        WorldGen.CloudLake(islandX[2], islandY3);
+
+                        WorldGen.SnowCloudIsland(islandX[3], islandY4);
+                        WorldGen.IslandHouse(islandX[3], islandY4, 1);
+                        islandSuccess = true;
+                        progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateIslands")} (2/2)";
+                        Thread.Sleep(250);
+                    }
+                    catch (Exception)
+                    {
+                        islandSuccess = false;
+                        totalAttempts++;
+                        progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateIslands")} (1/2) - {totalAttempts}";
+                    }
                 }
-                WorldGen.CloudIsland(islandX[0], (int)islandY1);
-                WorldGen.IslandHouse(islandX[0], (int)islandY1, 2);
-                WorldGen.DesertCloudIsland(islandX[1], (int)islandY2);
-                WorldGen.IslandHouse(islandX[1], (int)islandY2, 3);
-                WorldGen.CloudLake(islandX[2], (int)islandY3);
-                WorldGen.SnowCloudIsland(islandX[3], (int)islandY4);
-                WorldGen.IslandHouse(islandX[3], (int)islandY4, 1);
+
             }
-            
+
             if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateTemple)
             {
                 progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateJungle");
-                progress.Set(0.4f);
+                progress.Set(0.6f);
                 //tasks.Add(jungleTask1);
                 //tasks.Add(jungleTask2);
-                WorldGen.makeTemple(next % 2 == 0 ? Main.maxTilesX / 5 : (int)(Main.maxTilesX / 1.25), (int)Main.rockLayer);
+                //ModLoader.TryGetMod("CalamityMod", out Mod CalamityMod);
+                WorldGen.makeTemple(dungeonSide == 1 ? Main.maxTilesX / 5 : (int)(Main.maxTilesX / 1.25), (int)Main.rockLayer);
             }
             if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateDungeon)
             {
-                progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon");
-                progress.Set(0.6f);
-                WorldGen.MakeDungeon(next % 2 == 0 ? (int)(Main.maxTilesX / 1.25) : Main.maxTilesX / 5, Main.spawnTileY + 30);
+                progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (1/2)";
+                progress.Set(0.8f);
+                Main.dungeonX = dungeonSide == 1 ? (int)(Main.maxTilesX / 1.25) : Main.maxTilesX / 5;
+                Main.dungeonY = Main.spawnTileY + 30;
+                WorldGen.PlaceTile(Main.dungeonX, Main.dungeonY, TileID.Stone);
+                Thread.Sleep(250);
+                var dungeonSuccess = false;
+                while (!dungeonSuccess)
+                {
+                    try
+                    {
+                        WorldGen.MakeDungeon(Main.dungeonX, Main.dungeonY);
+                        dungeonSuccess = true;
+                        progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (2/2)";
+                        Thread.Sleep(250);
+                    }
+                    catch (Exception)
+                    {
+                        Main.dungeonX = rand.Next(Main.maxTilesX);
+                        Main.dungeonY = Main.spawnTileY + 30;
+                        dungeonSuccess = false;
+                        progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (1/2) - {Main.dungeonX}";
+                    }
+                }
             }
-            Thread.Sleep(500);
+            Thread.Sleep(250);
             progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.FinishLoading");
             progress.Set(1f);
             Thread.Sleep(500);
-        }
-        public override void PostWorldGen()
-        {
-            var source = Entity.GetSource_TownSpawn();
-            int num = NPC.NewNPC(source, Main.spawnTileX * 16, (Main.spawnTileY - 1) * 16, 22, 0, 0f, 0f, 0f, 0f, 255);
-            Main.npc[num].homeTileX = Main.spawnTileX;
-            Main.npc[num].homeTileY = Main.spawnTileY;
-            Main.npc[num].direction = 1;
-            Main.npc[num].homeless = true;
         }
     }
 }

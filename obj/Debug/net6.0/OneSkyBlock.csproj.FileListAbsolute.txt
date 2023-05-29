@@ -124,7 +124,6 @@ C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\NVorbis.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\RailSDK.Net.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\ReLogic.dll
-C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\SixLabors.ImageSharp.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\Steamworks.NET.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\SteelSeriesEngineWrapper.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\System.CodeDom.dll
@@ -153,7 +152,6 @@ C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Utils.xml
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\ReLogic.pdb
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\ReLogic.xml
-C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\SixLabors.ImageSharp.xml
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\System.CodeDom.xml
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\System.Configuration.ConfigurationManager.xml
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.xml
@@ -263,3 +261,16 @@ C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.dll
 C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\Microsoft.CodeAnalysis.FlowAnalysis.Utilities.xml
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Backports.dll
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Core.dll
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Iced.dll
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.ILHelpers.dll
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Backports.pdb
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Backports.xml
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Core.pdb
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Core.xml
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Iced.pdb
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Iced.xml
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.ILHelpers.pdb
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.RuntimeDetour.pdb
+C:\Users\ryans\Documents\My Games\Terraria\tModLoader\ModSources\OneSkyBlock\bin\Debug\net6.0\MonoMod.Utils.pdb

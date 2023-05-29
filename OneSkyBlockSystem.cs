@@ -1,13 +1,11 @@
-﻿using Terraria.Localization;
-using Microsoft.Xna.Framework;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using System.Linq;
-using Terraria.Chat;
-using System.Collections.Generic;
 using Terraria.DataStructures;
-
+using Terraria.GameContent.ItemDropRules;
 
 namespace OneSkyBlock
 {
@@ -49,14 +47,14 @@ namespace OneSkyBlock
 			{ ItemID.ClayBlock, 2 },
 			{ ItemID.IceBlock, 2 },
 		};
-		public override bool Drop(int i, int j, int type)
+		public override bool CanDrop(int i, int j, int type)
         {
 			int playerCount = ModContent.GetInstance<OneSkyBlockConfig>().OneBlockMultiplayer ? Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active) : 1;
 			for (int p = 0; p < playerCount; p++)
 			{
 				if (i == (Main.spawnTileX + (p * 5)) && j == Main.spawnTileY)
 					return false;
-						//return i != (Main.spawnTileX + (p * 5)) || j != Main.spawnTileY;
+					//return i != (Main.spawnTileX + (p * 5)) || j != Main.spawnTileY;
 			}
 			return true;
         }
@@ -359,18 +357,21 @@ namespace OneSkyBlock
 						skyDrops.AddEntry(ItemID.PearlstoneBlock, 1.0 * ModSkyBlockConfig.OneBlockBlockRate);
 
 					}
-					if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2)
+					if (Main.hardMode && NPC.downedMechBossAny)
 					{
 						skyDrops.AddEntry(ItemID.MythrilOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.MythrilOre]);
 						skyDrops.AddEntry(ItemID.OrichalcumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.OrichalcumOre]);
 					}
-					if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
-					{
+                    if (Main.hardMode && Convert.ToInt32(NPC.downedMechBoss1) + Convert.ToInt32(NPC.downedMechBoss2) + Convert.ToInt32(NPC.downedMechBoss3) >= 2)
+                    {
 						skyDrops.AddEntry(ItemID.TitaniumOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.TitaniumOre]);
 						skyDrops.AddEntry(ItemID.AdamantiteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.AdamantiteOre]);
-						skyDrops.AddEntry(ItemID.ChlorophyteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.ChlorophyteOre]);
 					}
-					if (Main.hardMode && NPC.downedPlantBoss)
+                    if (Main.hardMode && NPC.downedMechBoss1 && NPC.downedMechBoss2 && NPC.downedMechBoss3)
+                    {
+                        skyDrops.AddEntry(ItemID.ChlorophyteOre, 0.75 * ModSkyBlockConfig.OneBlockOreRate + scaleItemWeight[ItemID.ChlorophyteOre]);
+                    }
+                    if (Main.hardMode && NPC.downedPlantBoss)
 					{
 						skyDrops.AddEntry(ItemID.LihzahrdBrick, 1 * ModSkyBlockConfig.OneBlockBlockRate);
 						skyDrops.AddEntry(ItemID.SuperDartTrap, 0.05 * ModSkyBlockConfig.OneBlockBlockRate);
@@ -454,22 +455,28 @@ namespace OneSkyBlock
 
 	public class OneSkyBlockDrop : GlobalItem
     {
-		public override void OpenVanillaBag(string context, Player player, int arg)
-		{
-			var source = player.GetSource_OpenItem(1);
-			if (context == "bossBag" && arg == ItemID.PlanteraBossBag)
+        public override void ModifyItemLoot(Item item, ItemLoot itemLoot)
+        {
+            if (item.type == ItemID.PlanteraBossBag && !ModContent.GetInstance<OneSkyBlockConfig>().GenerateTemple)
             {
-				if (!ModContent.GetInstance<OneSkyBlockConfig>().GenerateTemple)
-					player.QuickSpawnItem(source, ItemID.LihzahrdAltar, 1);
-			}
-		}
+                foreach (var rule in itemLoot.Get())
+                {
+                    if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptionsDrop && oneFromOptionsDrop.dropIds.Contains(ItemID.GreaterHealingPotion))
+                    {
+                        var original = oneFromOptionsDrop.dropIds.ToList();
+                        original.Add(ItemID.LihzahrdAltar);
+                        oneFromOptionsDrop.dropIds = original.ToArray();
+                    }
+                }
+            }
+        }
     }
 	public class OneSkyBlockShop : GlobalNPC
 	{
-        public override void SetupShop(int type, Chest shop, ref int nextSlot)
+        public override void SetupTravelShop(int[] shop, ref int nextSlot)
         {
-			if (type == NPCID.Merchant)
-				shop.item[nextSlot++].SetDefaults(ItemID.Extractinator);
+			shop[nextSlot++] = ItemID.Extractinator; //.SetDefaults(ItemID.Extractinator);
+            //base.SetupTravelShop(shop, ref nextSlot);
         }
 	}
 

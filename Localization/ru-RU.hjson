@@ -1,88 +1,206 @@
-# Английский ("en-US"), немецкий ("de-DE"), итальянский ("it-IT"), французский ("fr-FR"), испанский ("es-ES"), русский ("ru-RU"), китайский ("zh-Hans"), португальский ("pt-BR") и польский ("pl-PL").
-# Локализация для BetterBeds.tmod
-{
-	Mods: {
-		OneSkyBlock: {
-			CraftableAltar: {
-				DisplayName: "Алтарь демонов"
-				Tooltip: "Ничего не упадет, если вы его сломаете!"
+Mods: {
+	OneSkyBlock: {
+		CraftableAltar: {
+			DisplayName: Алтарь демонов
+			Tooltip: Ничего не упадет, если вы его сломаете!
+		}
+
+		WorldGen: {
+			ResetWorld: Очистить мир
+			PrepareChallenge: Подготовка SkyBlock Challenge
+			GenerateIslands: Генерирование плавающих островов
+			GenerateJungle: Генерация храма в джунглях
+			GenerateDungeon: Генерировать подземелье
+			FinishLoading: Завершение генерации
+		}
+
+		Configuration: {
+			WorldGenerationHeader: Настройки генерации мира [c/ff9eb4:(может сломаться во время создания мира)]
+			GenerateDungeon: "[i:3205] Подземелье включено"
+			GenerateDungeonTooltip:
+				'''
+				Включение этого параметра позволит генерировать подземелье во вновь созданных мирах.
+				Рекомендуется иметь мод, который предоставляет предметы, связанные с подземельем, если он выключен.
+				'''
+			GenerateTemple: "[i:3208] Храм в джунглях включен"
+			GenerateTempleTooltip:
+				'''
+				Если включить эту опцию, то Храм Джунглей будет генерироваться на вновь созданных мирах.
+				Рекомендуется иметь мод, который предоставляет предметы, связанные с храмами, если он выключен.
+				'''
+			GenerateUnderworld: "[i:4878] Подземный мир включен"
+			GenerateUnderworldTooltip:
+				'''
+				Включение этой опции позволит генерировать подземный мир на вновь созданных мирах.
+				ПРЕДУПРЕЖДЕНИЕ: Эта функция может нарушить генерацию мира.
+				'''
+			GeneratePyramids: "[i:4407] Пирамиды включены"
+			GeneratePyramidsTooltip:
+				'''
+				Включение этой функции позволит пирамидам генерироваться во вновь созданных мирах.
+				Пирамиды не могут генерироваться независимо от того, включена ли эта функция.
+				WARNING: Эта функция может нарушить генерацию мира.
+				'''
+			GenerateIslands: "[i:3206] Плавучие острова включены"
+			GenerateIslandsTooltip:
+				'''
+				Если включить эту опцию, то плавающие острова будут генерироваться во вновь созданных мирах.
+				Рекомендуется использовать мод, который предоставляет предметы, связанные с плавающими островами.
+				WARNING: Эта функция может нарушить генерацию мира.
+				'''
+			GenerateBiomes: "[i:3203] Микробиомы с поддержкой"
+			GenerateBiomesTooltip: Эта функция в настоящее время отключена из-за проблем с генерацией мира.
+			GenerateOceans: "[i:5002] Океаны включены"
+			GenerateOceansTooltip: Эта функция в настоящее время отключена из-за проблем с генерацией мира.
+			SkyblockSettingsHeader: Настройки одного скайблока
+			OneBlockMaxDrops: "[i:18] Максимальное количество капель в скайблоке"
+			OneBlockMaxDropsTooltip:
+				'''
+				Настройте максимальное количество предметов, выпадающих из скайблока.
+				Шанс выпадения дополнительного количества уменьшается на 75%.
+				'''
+			OneBlockBlockRate: "[i:2] Скорость выпадения блоков"
+			OneBlockBlockRateTooltip: Регулирует скорость выпадения стандартных блоков для скайблока.
+			OneBlockOreRate: "[i:13] Скорость падения руды"
+			OneBlockOreRateTooltip: Настройте уровень выпадения руды для блока неба.
+			OneBlockGemRate: "[i:182] Скорость выпадения драгоценных камней"
+			OneBlockGemRateTooltip: Настройте уровень выпадения драгоценных камней в небесном блоке.
+			OneBlockLiquidsRate: "[i:206] Скорость падения жидкости"
+			OneBlockLiquidsRateTooltip: Настройте уровень выпадения жидкостей в сайбблоке.
+			OneBlockSeedsRate: "[i:62] Скорость падения семян"
+			OneBlockSeedsRateTooltip: Настройка частоты выпадения семян для небесного блока.
+			OneBlockCratesRate: "[i:2334] Скорость падения ящиков."
+			OneBlockCratesRateTooltip: Настройка частоты выпадения ящиков в небесном блоке.
+			OneBlockStatuesRate: "[i:440] Коэффициент падения статуй"
+			OneBlockStatuesRateTooltip: Настройка частоты выпадения статуй в сайбблоке.
+			OneBlockItemsRate: "[i:29] Скорость падения предметов"
+			OneBlockItemsRateTooltip: Настройка частоты выпадения предметов в сайбблоке.
+			SkyblockDropHeadeer: Пользовательские дропы скайблока
+			OneBlockCustomRate: "[i:18] Пользовательский коэффициент падения"
+			OneBlockCustomRateTooltip:
+				'''
+				Настраивает скорость падения добавленных предметов для скайблока.
+				(1 = Обычный, 0.5 = Необычный, 0.1 = Редкий, 0 = Недоступный).
+				'''
+			OneBlockCustomDrops: Добавляемый предмет:
+			OneBlockCustomDropsTooltip: Вы можете добавить свои собственные предметы в таблицу дропа скайблока!
+			Extras: Доп. информация.
+			OneBlockMultiplayer: "[i:751] Дополнительные многопользовательские скайблоки."
+			OneBlockMultiplayerTooltip: Включение этой функции добавит дополнительные скайблоки, в зависимости от количества игроков.
+			OneBlockDebug: "[i:1344] Режим отладки"
+			OneBlockDebugTooltip: Включение этого параметра включает сообщения данных блока. Используется для отладки.
+		}
+
+		Items: {
+			CraftableDemonAltar: {
+				// DisplayName: Craftable Demon Altar
+				// Tooltip: ""
 			}
-			WorldGen: {
-				ResetWorld: "Очистить мир"
-				PrepareChallenge: "Подготовка SkyBlock Challenge"
-				GenerateIslands: "Генерирование плавающих островов"
-				GenerateJungle: "Генерация храма в джунглях"
-				GenerateDungeon: "Генерировать подземелье"
-				FinishLoading: "Завершение генерации"
-			}
-			Configuration: {
-				WorldGenerationHeader: "Настройки генерации мира [c/ff9eb4:(может сломаться во время создания мира)]"
+		}
 
-				GenerateDungeon: "[i:3205] Подземелье включено"
-				GenerateDungeonTooltip: "Включение этого параметра позволит генерировать подземелье во вновь созданных мирах.\nРекомендуется иметь мод, который предоставляет предметы, связанные с подземельем, если он выключен."
+		Configs: {
+			OneSkyBlockConfig: {
+				// DisplayName: OneSkyBlockConfig
 
-				GenerateTemple: "[i:3208] Храм в джунглях включен"
-				GenerateTempleTooltip: "Если включить эту опцию, то Храм Джунглей будет генерироваться на вновь созданных мирах.\nРекомендуется иметь мод, который предоставляет предметы, связанные с храмами, если он выключен."
+				GenerateDungeon: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateDungeon}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateDungeonTooltip}"
+				}
 
-				GenerateUnderworld: "[i:4878] Подземный мир включен"
-				GenerateUnderworldTooltip: "Включение этой опции позволит генерировать подземный мир на вновь созданных мирах.\nПРЕДУПРЕЖДЕНИЕ: Эта функция может нарушить генерацию мира."
+				GenerateTemple: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateTemple}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateTempleTooltip}"
+				}
 
-				GeneratePyramids: "[i:4407] Пирамиды включены"
-				GeneratePyramidsTooltip: "Включение этой функции позволит пирамидам генерироваться во вновь созданных мирах.\nПирамиды не могут генерироваться независимо от того, включена ли эта функция.\nWARNING: Эта функция может нарушить генерацию мира."
+				GenerateUnderworld: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateUnderworld}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateUnderworldTooltip}"
+				}
 
-				GenerateIslands: "[i:3206] Плавучие острова включены"
-				GenerateIslandsTooltip: "Если включить эту опцию, то плавающие острова будут генерироваться во вновь созданных мирах.\nРекомендуется использовать мод, который предоставляет предметы, связанные с плавающими островами.\nWARNING: Эта функция может нарушить генерацию мира."
+				GeneratePyramids: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GeneratePyramids}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GeneratePyramidsTooltip}"
+				}
 
-				GenerateBiomes: "[i:3203] Микробиомы с поддержкой"
-				GenerateBiomesTooltip: "Эта функция в настоящее время отключена из-за проблем с генерацией мира."
+				GenerateIslands: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateIslands}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateIslandsTooltip}"
+				}
 
-				GenerateOceans: "[i:5002] Океаны включены"
-				GenerateOceansTooltip: "Эта функция в настоящее время отключена из-за проблем с генерацией мира."
+				GenerateBiomes: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateBiomes}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateBiomesTooltip}"
+				}
 
-				SkyblockSettingsHeader: "Настройки одного скайблока"
+				GenerateOceans: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateOceans}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip}"
+				}
 
-				OneBlockMaxDrops: "[i:18] Максимальное количество капель в скайблоке"
-				OneBlockMaxDropsTooltip: "Настройте максимальное количество предметов, выпадающих из скайблока.\nШанс выпадения дополнительного количества уменьшается на 75%."
+				OneBlockMaxDrops: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockMaxDrops}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockMaxDropsTooltip}"
+				}
 
-				OneBlockBlockRate: "[i:2] Скорость выпадения блоков"
-				OneBlockBlockRateTooltip: "Регулирует скорость выпадения стандартных блоков для скайблока."
+				OneBlockBlockRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockBlockRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockBlockRateTooltip}"
+				}
 
-				OneBlockOreRate: "[i:13] Скорость падения руды"
-				OneBlockOreRateTooltip: "Настройте уровень выпадения руды для блока неба."
+				OneBlockOreRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockOreRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockOreRateTooltip}"
+				}
 
-				OneBlockGemRate: "[i:182] Скорость выпадения драгоценных камней"
-				OneBlockGemRateTooltip: "Настройте уровень выпадения драгоценных камней в небесном блоке."
+				OneBlockGemRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockGemRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockGemRateTooltip}"
+				}
 
-				OneBlockLiquidsRate: "[i:206] Скорость падения жидкости"
-				OneBlockLiquidsRateTooltip: "Настройте уровень выпадения жидкостей в сайбблоке."
+				OneBlockLiquidsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockLiquidsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockLiquidsRateTooltip}"
+				}
 
-				OneBlockSeedsRate: "[i:62] Скорость падения семян"
-				OneBlockSeedsRateTooltip: "Настройка частоты выпадения семян для небесного блока."
+				OneBlockSeedsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockSeedsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockSeedsRateTooltip}"
+				}
 
-				OneBlockCratesRate: "[i:2334] Скорость падения ящиков."
-				OneBlockCratesRateTooltip: "Настройка частоты выпадения ящиков в небесном блоке."
+				OneBlockCratesRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCratesRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCratesRateTooltip}"
+				}
 
-				OneBlockStatuesRate: "[i:440] Коэффициент падения статуй"
-				OneBlockStatuesRateTooltip: "Настройка частоты выпадения статуй в сайбблоке."
+				OneBlockStatuesRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockStatuesRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockStatuesRateTooltip}"
+				}
 
-				OneBlockItemsRate: "[i:29] Скорость падения предметов"
-				OneBlockItemsRateTooltip: "Настройка частоты выпадения предметов в сайбблоке."
+				OneBlockItemsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockItemsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockItemsRateTooltip}"
+				}
 
-				SkyblockDropHeadeer: "Пользовательские дропы скайблока"
+				OneBlockCustomRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomRateTooltip}"
+				}
 
-				OneBlockCustomRate: "[i:18] Пользовательский коэффициент падения"
-				OneBlockCustomRateTooltip: "Настраивает скорость падения добавленных предметов для скайблока.\n(1 = Обычный, 0.5 = Необычный, 0.1 = Редкий, 0 = Недоступный)."
+				OneBlockCustomDrops: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomDrops}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomDropsTooltip}"
+				}
 
-				OneBlockCustomDrops: "Добавляемый предмет:"
-				OneBlockCustomDropsTooltip: "Вы можете добавить свои собственные предметы в таблицу дропа скайблока!"
+				OneBlockMultiplayer: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockMultiplayer}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockMultiplayerTooltip}"
+				}
 
-				Extras: "Доп. информация."
-
-				OneBlockMultiplayer: "[i:751] Дополнительные многопользовательские скайблоки."
-				OneBlockMultiplayerTooltip: "Включение этой функции добавит дополнительные скайблоки, в зависимости от количества игроков."
-
-				OneBlockDebug: "[i:1344] Режим отладки"
-				OneBlockDebugTooltip: "Включение этого параметра включает сообщения данных блока. Используется для отладки."
+				OneBlockDebug: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockDebug}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockDebugTooltip}"
+				}
 			}
 		}
 	}

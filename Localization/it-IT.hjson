@@ -1,88 +1,206 @@
-# Inglese ("en-US"), tedesco ("de-DE"), italiano ("it-IT"), francese ("fr-FR"), spagnolo ("es-ES"), russo ("ru-RU"), cinese ("zh-Hans"), portoghese ("pt-BR") e polacco ("pl-PL")
-# Localizzazione per BetterBeds.tmod
-{
-	Mods: {
-		OneSkyBlock: {
-			CraftableAltar: {
-				DisplayName: "Altare del demone fabbricabile"
-				Tooltip: "Non farà cadere nulla se lo rompi!"
+Mods: {
+	OneSkyBlock: {
+		CraftableAltar: {
+			DisplayName: Altare del demone fabbricabile
+			Tooltip: Non farà cadere nulla se lo rompi!
+		}
+
+		WorldGen: {
+			ResetWorld: Azzeramento del mondo
+			PrepareChallenge: Preparare la sfida SkyBlock
+			GenerateIslands: Generare isole galleggianti
+			GenerateJungle: Generare tempio della giungla
+			GenerateDungeon: Generating dungeon
+			FinishLoading: Finitura generazione
+		}
+
+		Configuration: {
+			WorldGenerationHeader: Impostazioni di generazione del mondo [c/ff9eb4:(potrebbe interrompersi durante la creazione del mondo)]
+			GenerateDungeon: "[i:3205] Dungeon Abilitato"
+			GenerateDungeonTooltip:
+				'''
+				Attivando questo ON si abilita la generazione del Dungeon sui mondi appena creati.
+				Si raccomanda di avere un mod che fornisca oggetti relativi al dungeon quando è spento.
+				'''
+			GenerateTemple: "[i:3208] Tempio della giungla abilitato"
+			GenerateTempleTooltip:
+				'''
+				Attivando questo ON si abilita la generazione del Tempio della Giungla sui mondi appena creati.
+				Si raccomanda di avere un mod che fornisca oggetti relativi al tempio quando è spento.
+				'''
+			GenerateUnderworld: "[i:4878] Underworld abilitato"
+			GenerateUnderworldTooltip:
+				'''
+				Attivando questa opzione si abilita la generazione degli Inferi sui mondi appena creati.
+				ATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo
+				'''
+			GeneratePyramids: "[i:4407] Pyramids Enabled"
+			GeneratePyramidsTooltip:
+				'''
+				Attivando questa opzione si abilita la generazione di piramidi sui mondi appena creati.
+				Le piramidi potrebbero non essere generate indipendentemente dal fatto che sia abilitata.
+				ATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo
+				'''
+			GenerateIslands: "[i:3206] Isole galleggianti abilitate"
+			GenerateIslandsTooltip:
+				'''
+				Attivando questa opzione si abilita la generazione delle Isole Fluttuanti sui mondi appena creati.
+				 Si raccomanda di avere una mod che fornisca oggetti relativi alle isole fluttuanti quando è disattivata.
+				ATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo
+				'''
+			GenerateBiomes: "[i:3203] Micro Biomi Abilitati"
+			GenerateBiomesTooltip: Questa caratteristica è attualmente disabilitata a causa di problemi con la generazione del mondo.
+			GenerateOceans: "[i:5002] Oceani Abilitato"
+			GenerateOceansTooltip: Questa funzione è attualmente disabilitata a causa di problemi con la generazione del mondo.
+			SkyblockSettingsHeader: Impostazioni One Skyblock
+			OneBlockMaxDrops: "[i:18] Quantità massima di caduta Skyblock"
+			OneBlockMaxDropsTooltip:
+				'''
+				Regola il numero massimo di un oggetto lasciato cadere dallo skyblock.
+				La possibilità di lanciare una quantità aggiuntiva diminuisce del 75%.
+				'''
+			OneBlockBlockRate: "[i:2] Tasso di caduta dei blocchi"
+			OneBlockBlockRateTooltip: Regola i tassi di caduta dei blocchi standard per lo skyblock.
+			OneBlockOreRate: "[i:13] Tasso di caduta dei minerali"
+			OneBlockOreRateTooltip: Regola i tassi di caduta dei minerali per il blocco cielo.
+			OneBlockGemRate: "[i:182] Tasso di caduta delle gemme"
+			OneBlockGemRateTooltip: Regola i tassi di caduta delle gemme per il blocco cielo.
+			OneBlockLiquidsRate: "[i:206] Tasso di caduta dei liquidi"
+			OneBlockLiquidsRateTooltip: Regola i tassi di caduta dei liquidi per il blocco cielo.
+			OneBlockSeedsRate: "[i:62] Tasso di caduta dei semi"
+			OneBlockSeedsRateTooltip: Regola i tassi di caduta dei semi per il blocco cielo.
+			OneBlockCratesRate: "[i:2334] Tasso di caduta delle casse"
+			OneBlockCratesRateTooltip: Regola i tassi di caduta delle casse per il blocco cielo.
+			OneBlockStatuesRate: "[i:440] Tasso di caduta della statua"
+			OneBlockStatuesRateTooltip: Regola i tassi di caduta delle statue per il blocco cielo.
+			OneBlockItemsRate: "[i:29] Tasso di caduta degli oggetti"
+			OneBlockItemsRateTooltip: Regola i tassi di caduta degli oggetti per lo skyblock.
+			SkyblockDropHeadeer: Gocce Skyblock personalizzate
+			OneBlockCustomRate: "[i:18] Tasso di caduta personalizzato"
+			OneBlockCustomRateTooltip:
+				'''
+				Regola i tassi di caduta degli oggetti aggiunti personalizzati per lo skyblock.
+				(1 = Comune, 0.5 = Non comune, 0.1 = Raro, 0 = Introvabile)
+				'''
+			OneBlockCustomDrops: Oggetto da aggiungere:
+			OneBlockCustomDropsTooltip: Puoi aggiungere i tuoi oggetti da aggiungere alla tabella dei drop dello skyblock!
+			// Extras: Extras
+			OneBlockMultiplayer: "[i:751] Skyblock Multiplayer aggiuntivi"
+			OneBlockMultiplayerTooltip: Attivando questa opzione verranno aggiunti ulteriori Skyblock, a seconda del numero di giocatori.
+			OneBlockDebug: "[i:1344] Modalità Debug"
+			OneBlockDebugTooltip: Attivando questa opzione si abilitano i messaggi di dati del blocco. Usato per scopi di debug.
+		}
+
+		Items: {
+			CraftableDemonAltar: {
+				// DisplayName: Craftable Demon Altar
+				// Tooltip: ""
 			}
-			WorldGen: {
-				ResetWorld: "Azzeramento del mondo"
-				PrepareChallenge: "Preparare la sfida SkyBlock"
-				GenerateIslands: "Generare isole galleggianti"
-				GenerateJungle: "Generare tempio della giungla"
-				GenerateDungeon: "Generating dungeon"
-				FinishLoading: "Finitura generazione"
-			}
-			Configuration: {
-				WorldGenerationHeader: "Impostazioni di generazione del mondo [c/ff9eb4:(potrebbe interrompersi durante la creazione del mondo)]"
+		}
 
-				GenerateDungeon: "[i:3205] Dungeon Abilitato"
-				GenerateDungeonTooltip: "Attivando questo ON si abilita la generazione del Dungeon sui mondi appena creati.\nSi raccomanda di avere un mod che fornisca oggetti relativi al dungeon quando è spento."
+		Configs: {
+			OneSkyBlockConfig: {
+				// DisplayName: OneSkyBlockConfig
 
-				GenerateTemple: "[i:3208] Tempio della giungla abilitato"
-				GenerateTempleTooltip: "Attivando questo ON si abilita la generazione del Tempio della Giungla sui mondi appena creati.\nSi raccomanda di avere un mod che fornisca oggetti relativi al tempio quando è spento."
+				GenerateDungeon: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateDungeon}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateDungeonTooltip}"
+				}
 
-				GenerateUnderworld: "[i:4878] Underworld abilitato"
-				GenerateUnderworldTooltip: "Attivando questa opzione si abilita la generazione degli Inferi sui mondi appena creati.\nATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo"
+				GenerateTemple: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateTemple}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateTempleTooltip}"
+				}
 
-				GeneratePyramids: "[i:4407] Pyramids Enabled"
-				GeneratePyramidsTooltip: "Attivando questa opzione si abilita la generazione di piramidi sui mondi appena creati.\nLe piramidi potrebbero non essere generate indipendentemente dal fatto che sia abilitata.\nATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo"
+				GenerateUnderworld: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateUnderworld}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateUnderworldTooltip}"
+				}
 
-				GenerateIslands: "[i:3206] Isole galleggianti abilitate"
-				GenerateIslandsTooltip: "Attivando questa opzione si abilita la generazione delle Isole Fluttuanti sui mondi appena creati.\n Si raccomanda di avere una mod che fornisca oggetti relativi alle isole fluttuanti quando è disattivata.\nATTENZIONE: questa funzione potrebbe interrompere la generazione del mondo"
+				GeneratePyramids: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GeneratePyramids}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GeneratePyramidsTooltip}"
+				}
 
-				GenerateBiomes: "[i:3203] Micro Biomi Abilitati"
-				GenerateBiomesTooltip: "Questa caratteristica è attualmente disabilitata a causa di problemi con la generazione del mondo."
+				GenerateIslands: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateIslands}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateIslandsTooltip}"
+				}
 
-				GenerateOceans: "[i:5002] Oceani Abilitato"
-				GenerateOceansTooltip: "Questa funzione è attualmente disabilitata a causa di problemi con la generazione del mondo."
+				GenerateBiomes: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateBiomes}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateBiomesTooltip}"
+				}
 
-				SkyblockSettingsHeader: "Impostazioni One Skyblock"
+				GenerateOceans: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateOceans}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip}"
+				}
 
-				OneBlockMaxDrops: "[i:18] Quantità massima di caduta Skyblock"
-				OneBlockMaxDropsTooltip: "Regola il numero massimo di un oggetto lasciato cadere dallo skyblock.\nLa possibilità di lanciare una quantità aggiuntiva diminuisce del 75%."
+				OneBlockMaxDrops: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockMaxDrops}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockMaxDropsTooltip}"
+				}
 
-				OneBlockBlockRate: "[i:2] Tasso di caduta dei blocchi"
-				OneBlockBlockRateTooltip: "Regola i tassi di caduta dei blocchi standard per lo skyblock."
+				OneBlockBlockRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockBlockRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockBlockRateTooltip}"
+				}
 
-				OneBlockOreRate: "[i:13] Tasso di caduta dei minerali"
-				OneBlockOreRateTooltip: "Regola i tassi di caduta dei minerali per il blocco cielo."
+				OneBlockOreRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockOreRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockOreRateTooltip}"
+				}
 
-				OneBlockGemRate: "[i:182] Tasso di caduta delle gemme"
-				OneBlockGemRateTooltip: "Regola i tassi di caduta delle gemme per il blocco cielo."
+				OneBlockGemRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockGemRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockGemRateTooltip}"
+				}
 
-				OneBlockLiquidsRate: "[i:206] Tasso di caduta dei liquidi"
-				OneBlockLiquidsRateTooltip: "Regola i tassi di caduta dei liquidi per il blocco cielo."
+				OneBlockLiquidsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockLiquidsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockLiquidsRateTooltip}"
+				}
 
-				OneBlockSeedsRate: "[i:62] Tasso di caduta dei semi"
-				OneBlockSeedsRateTooltip: "Regola i tassi di caduta dei semi per il blocco cielo."
+				OneBlockSeedsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockSeedsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockSeedsRateTooltip}"
+				}
 
-				OneBlockCratesRate: "[i:2334] Tasso di caduta delle casse"
-				OneBlockCratesRateTooltip: "Regola i tassi di caduta delle casse per il blocco cielo."
+				OneBlockCratesRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCratesRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCratesRateTooltip}"
+				}
 
-				OneBlockStatuesRate: "[i:440] Tasso di caduta della statua"
-				OneBlockStatuesRateTooltip: "Regola i tassi di caduta delle statue per il blocco cielo."
+				OneBlockStatuesRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockStatuesRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockStatuesRateTooltip}"
+				}
 
-				OneBlockItemsRate: "[i:29] Tasso di caduta degli oggetti"
-				OneBlockItemsRateTooltip: "Regola i tassi di caduta degli oggetti per lo skyblock."
+				OneBlockItemsRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockItemsRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockItemsRateTooltip}"
+				}
 
-				SkyblockDropHeadeer: "Gocce Skyblock personalizzate"
+				OneBlockCustomRate: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomRate}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomRateTooltip}"
+				}
 
-				OneBlockCustomRate: "[i:18] Tasso di caduta personalizzato"
-				OneBlockCustomRateTooltip: "Regola i tassi di caduta degli oggetti aggiunti personalizzati per lo skyblock.\n(1 = Comune, 0.5 = Non comune, 0.1 = Raro, 0 = Introvabile)"
+				OneBlockCustomDrops: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomDrops}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockCustomDropsTooltip}"
+				}
 
-				OneBlockCustomDrops: "Oggetto da aggiungere:"
-				OneBlockCustomDropsTooltip: "Puoi aggiungere i tuoi oggetti da aggiungere alla tabella dei drop dello skyblock!"
+				OneBlockMultiplayer: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockMultiplayer}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockMultiplayerTooltip}"
+				}
 
-				Extra: "Extra"
-
-				OneBlockMultiplayer: "[i:751] Skyblock Multiplayer aggiuntivi"
-				OneBlockMultiplayerTooltip: "Attivando questa opzione verranno aggiunti ulteriori Skyblock, a seconda del numero di giocatori."
-
-				OneBlockDebug: "[i:1344] Modalità Debug"
-				OneBlockDebugTooltip: "Attivando questa opzione si abilitano i messaggi di dati del blocco. Usato per scopi di debug."
+				OneBlockDebug: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.OneBlockDebug}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.OneBlockDebugTooltip}"
+				}
 			}
 		}
 	}
