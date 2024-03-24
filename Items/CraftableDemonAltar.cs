@@ -56,11 +56,11 @@ namespace OneSkyBlock.Items
 				.Register();
             // Other recipes
             Recipe.Create(ItemID.Hellforge)
-                .AddIngredient(ItemID.Hellstone, 15)
-                .AddIngredient(ItemID.Obsidian, 10)
+                .AddIngredient(ItemID.Hellstone, 25)
+                .AddIngredient(ItemID.Obsidian, 20)
                 .AddIngredient(ItemID.LavaBucket, 2)
                 .AddIngredient(ItemID.Furnace, 1)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.Anvils)
                 .Register();
             Recipe.Create(ItemID.GuideVoodooDoll)
                 .AddIngredient(ItemID.FamiliarWig)
