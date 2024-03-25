@@ -56,7 +56,13 @@ namespace OneSkyBlock
 		[TooltipKey("$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip")]
 		public bool GenerateOceans { get; }
 
-		[Header("$Mods.OneSkyBlock.Configuration.SkyblockSettingsHeader")]
+        [JsonIgnore]
+        [DefaultValue(false)]
+        [LabelKey("$Mods.OneSkyBlock.Configuration.ShimmerChallenge")]
+        [TooltipKey("$Mods.OneSkyBlock.Configuration.ShimmerChallengeTooltip")]
+		public bool ShimmerChallenge { get; set; }
+
+        [Header("$Mods.OneSkyBlock.Configuration.SkyblockSettingsHeader")]
 		[JsonIgnore]
 		[DefaultValue(5)]
 		[Range(1, 100)]
@@ -146,6 +152,8 @@ namespace OneSkyBlock
 		[LabelKey("$Mods.OneSkyBlock.Configuration.OneBlockDebug")]
 		[TooltipKey("$Mods.OneSkyBlock.Configuration.OneBlockDebugTooltip")]
 		public bool OneBlockDebug { get; set; }
+
+		// TODO Add configuration option for craftable life fruits (disabling)
 
         public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message)
 		{

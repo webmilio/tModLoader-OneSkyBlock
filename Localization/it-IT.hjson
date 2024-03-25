@@ -16,6 +16,12 @@ Mods: {
 
 		Configuration: {
 			WorldGenerationHeader: Impostazioni di generazione del mondo [c/ff9eb4:(potrebbe interrompersi durante la creazione del mondo)]
+			// ShimmerChallenge: Shimmer Challenge Enabled
+			/* ShimmerChallengeTooltip:
+				'''
+				Turning this ON will enable the Shimmer Challenge on newly created worlds.
+				You must create a character on medium-core for this challenge to be possible.
+				''' */
 			GenerateDungeon: "[i:3205] Dungeon Abilitato"
 			GenerateDungeonTooltip:
 				'''
@@ -135,6 +141,11 @@ Mods: {
 				GenerateOceans: {
 					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateOceans}"
 					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip}"
+				}
+
+				ShimmerChallenge: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.ShimmerChallenge}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.ShimmerChallengeTooltip}"
 				}
 
 				OneBlockMaxDrops: {

@@ -403,3 +403,31 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/bin/Debug/net6.0/FNA.dll
+/bin/Debug/net6.0/FNA.pdb
+/bin/Debug/net6.0/MonoMod.Backports.dll
+/bin/Debug/net6.0/MonoMod.Core.dll
+/bin/Debug/net6.0/MonoMod.Iced.dll
+/bin/Debug/net6.0/MonoMod.ILHelpers.dll
+/bin/Debug/net6.0/MonoMod.RuntimeDetour.dll
+/bin/Debug/net6.0/MonoMod.Utils.dll
+/bin/Debug/net6.0/OneSkyBlock.deps.json
+/bin/Debug/net6.0/OneSkyBlock.dll
+/bin/Debug/net6.0/OneSkyBlock.pdb
+/bin/Debug/net6.0/ReLogic.dll
+/bin/Debug/net6.0/ReLogic.pdb
+/bin/Debug/net6.0/TerrariaHooks.dll
+/bin/Debug/net6.0/tModLoader.dll
+/bin/Debug/net6.0/tModLoader.pdb
+/bin/Debug/net6.0/tModLoader.xml
+/bin/Debug/net6.0/tModPorter.dll
+/bin/Debug/net6.0/tModPorter.pdb
+/obj/Debug/net6.0/OneSkyBlock.assets.cache
+/obj/Debug/net6.0/OneSkyBlock.csproj.AssemblyReference.cache
+/obj/Debug/net6.0/OneSkyBlock.csproj.CoreCompileInputs.cache
+/obj/Debug/net6.0/OneSkyBlock.csproj.FileListAbsolute.txt
+/obj/Debug/net6.0/OneSkyBlock.dll
+/obj/Debug/net6.0/OneSkyBlock.GeneratedMSBuildEditorConfig.editorconfig
+/obj/Debug/net6.0/OneSkyBlock.pdb
+/obj/Debug/net6.0/ref/OneSkyBlock.dll
+/obj/Debug/net6.0/refint/OneSkyBlock.dll

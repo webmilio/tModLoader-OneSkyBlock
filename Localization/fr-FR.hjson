@@ -16,6 +16,12 @@ Mods: {
 
 		Configuration: {
 			WorldGenerationHeader: Paramètres de génération de monde [c/ff9eb4:(may break during world creation)]
+			// ShimmerChallenge: Shimmer Challenge Enabled
+			/* ShimmerChallengeTooltip:
+				'''
+				Turning this ON will enable the Shimmer Challenge on newly created worlds.
+				You must create a character on medium-core for this challenge to be possible.
+				''' */
 			GenerateDungeon: "[i:3205] Donjon activé."
 			GenerateDungeonTooltip: Si vous activez cette option, le donjon sera généré sur les mondes nouvellement créés. Il est recommandé d'avoir un mod qui fournit des objets liés au donjon lorsqu'il est désactivé.
 			GenerateTemple: "[i:3208] Temple de la jungle activé."
@@ -109,6 +115,11 @@ Mods: {
 				GenerateOceans: {
 					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateOceans}"
 					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip}"
+				}
+
+				ShimmerChallenge: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.ShimmerChallenge}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.ShimmerChallengeTooltip}"
 				}
 
 				OneBlockMaxDrops: {

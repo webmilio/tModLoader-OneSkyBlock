@@ -16,6 +16,12 @@ Mods: {
 
 		Configuration: {
 			WorldGenerationHeader: 世界生成设置[c/ff9eb4:(在创建世界时可能会中断)]
+			// ShimmerChallenge: Shimmer Challenge Enabled
+			/* ShimmerChallengeTooltip:
+				'''
+				Turning this ON will enable the Shimmer Challenge on newly created worlds.
+				You must create a character on medium-core for this challenge to be possible.
+				''' */
 			GenerateDungeon: "[i:3205] 地牢已启用"
 			GenerateDungeonTooltip: 打开这个选项将使地牢在新创建的世界上生成。建议在关闭时有一个提供地牢相关物品的MOD。
 			GenerateTemple: "[i:3208] 丛林神庙已启用"
@@ -105,6 +111,11 @@ Mods: {
 				GenerateOceans: {
 					// Label: "{$Mods.OneSkyBlock.Configuration.GenerateOceans}"
 					// Tooltip: "{$Mods.OneSkyBlock.Configuration.GenerateOceansTooltip}"
+				}
+
+				ShimmerChallenge: {
+					// Label: "{$Mods.OneSkyBlock.Configuration.ShimmerChallenge}"
+					// Tooltip: "{$Mods.OneSkyBlock.Configuration.ShimmerChallengeTooltip}"
 				}
 
 				OneBlockMaxDrops: {

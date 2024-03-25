@@ -74,6 +74,8 @@ namespace OneSkyBlock
     {
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref double totalWeight)
         {
+            var config = ModContent.GetInstance<OneSkyBlockConfig>();
+
             foreach (var genTask in tasks)
             {
                 Console.WriteLine("GenTask: {0}", genTask.Name);
@@ -86,10 +88,10 @@ namespace OneSkyBlock
             GenPass islandTask1 = (ModContent.GetInstance<OneSkyBlockConfig>().GenerateIslands) ? tasks.Find(x => x.Name == "Floating Island") : null;
             GenPass islandTask2 = (ModContent.GetInstance<OneSkyBlockConfig>().GenerateIslands) ? tasks.Find(x => x.Name == "Floating Island Houses") : null;
             */
-            GenPass hellTask1 = (ModContent.GetInstance<OneSkyBlockConfig>().GenerateUnderworld) ? tasks.Find(x => x.Name == "Underworld") : null;
-            GenPass hellTask2 = (ModContent.GetInstance<OneSkyBlockConfig>().GenerateUnderworld) ? tasks.Find(x => x.Name == "Hellforge") : null;
-            GenPass pyramidTask = (ModContent.GetInstance<OneSkyBlockConfig>().GeneratePyramids) ? tasks.Find(x => x.Name == "Pyramids") : null;
-            GenPass microTask = (ModContent.GetInstance<OneSkyBlockConfig>().GenerateBiomes) ? tasks.Find(x => x.Name == "Micro Biomes") : null;
+            GenPass hellTask1 = (config.GenerateUnderworld) ? tasks.Find(x => x.Name == "Underworld") : null;
+            GenPass hellTask2 = (config.GenerateUnderworld) ? tasks.Find(x => x.Name == "Hellforge") : null;
+            GenPass pyramidTask = (config.GeneratePyramids) ? tasks.Find(x => x.Name == "Pyramids") : null;
+            GenPass microTask = (config.GenerateBiomes) ? tasks.Find(x => x.Name == "Micro Biomes") : null;
             //GenPass oceanTask = tasks.Find(x => x.Name == "Oasis");
             tasks.Clear();
             tasks.Add(resetTask);
@@ -104,44 +106,71 @@ namespace OneSkyBlock
                 tasks.Add(islandTask2);
             }
             */
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateUnderworld)
+            if (config.GenerateUnderworld)
             {
                 tasks.Add(hellTask1);
                 tasks.Add(hellTask2);
             }
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GeneratePyramids)
+            if (config.GeneratePyramids)
             {
                 tasks.Add(pyramidTask);
             }
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateBiomes)
+            if (config.GenerateBiomes)
             {
                 tasks.Add(microTask);
             }
+
             int genIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Reset"));
             tasks.Insert(genIndex + 1, new PassLegacy("Erasing World", ResetWorldPass, 1f));
             //tasks.Add(oceanTask);
             //tasks.Insert(genIndex + 1, new PassLegacy("Generating Temple", NewTemplePass, 1f));
         }
+
         private void ResetWorldPass(GenerationProgress progress, GameConfiguration config)
         {
+            var skyblockConfig = ModContent.GetInstance<OneSkyBlockConfig>();
+
             progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.PrepareChallenge");
             progress.Set(0f);
             Main.spawnTileX = Main.maxTilesX / 2;
             Main.spawnTileY = (Main.maxTilesY / 4) - 30;
             Main.worldSurface = Main.maxTilesY / 4;
             Main.rockLayer = Main.worldSurface + (Main.spawnTileY / 1.5);
-            WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY, TileID.Cloud, false, false);
+
+            if (skyblockConfig.ShimmerChallenge)
+            {
+                WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY, TileID.Platforms);
+
+                for (int x = Main.spawnTileX - 2; x <= Main.spawnTileX + 2; x++)
+                {
+                    WorldGen.PlaceTile(x, Main.spawnTileY + 2, TileID.Cloud);
+                }
+
+                for (int x = Main.spawnTileX - 1; x <= Main.spawnTileX + 1; x++)
+                {
+                    WorldGen.PlaceTile(x, Main.spawnTileY + 1, TileID.ShimmerBlock);
+                }
+
+                WorldGen.PlaceTile(Main.spawnTileX - 2, Main.spawnTileY + 1, TileID.ShimmerBlock);
+                WorldGen.PlaceTile(Main.spawnTileX + 2, Main.spawnTileY + 1, TileID.ShimmerBlock);
+            }
+            else
+            {
+                WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY, TileID.Cloud, false, false);
+            }
+            
             Thread.Sleep(500); // lol
             Random rand = new();
             int dungeonSide = Main.dungeonX < Main.maxTilesX / 2 ? -1 : 1;
             //int next = (int)(Main.GlobalTimeWrappedHourly);
 
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateIslands)
+            if (skyblockConfig.GenerateIslands)
             {
                 progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateIslands")} (1/2)";
                 progress.Set(0.3f);
                 var islandSuccess = false;
                 var totalAttempts = 0;
+
                 while (!islandSuccess && totalAttempts < 100000)
                 {
                     List<int> randomX = new()
@@ -200,7 +229,7 @@ namespace OneSkyBlock
 
             }
 
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateTemple)
+            if (skyblockConfig.GenerateTemple)
             {
                 progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateJungle");
                 progress.Set(0.6f);
@@ -209,7 +238,8 @@ namespace OneSkyBlock
                 //ModLoader.TryGetMod("CalamityMod", out Mod CalamityMod);
                 WorldGen.makeTemple(dungeonSide == 1 ? Main.maxTilesX / 5 : (int)(Main.maxTilesX / 1.25), (int)Main.rockLayer);
             }
-            if (ModContent.GetInstance<OneSkyBlockConfig>().GenerateDungeon)
+
+            if (skyblockConfig.GenerateDungeon)
             {
                 progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (1/2)";
                 progress.Set(0.8f);
@@ -217,15 +247,39 @@ namespace OneSkyBlock
                 Main.dungeonY = Main.spawnTileY + 30;
                 WorldGen.PlaceTile(Main.dungeonX, Main.dungeonY, TileID.Stone);
                 Thread.Sleep(250);
+                
                 var dungeonSuccess = false;
+                
                 while (!dungeonSuccess)
                 {
                     try
                     {
-                        WorldGen.MakeDungeon(Main.dungeonX, Main.dungeonY);
-                        dungeonSuccess = true;
-                        progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (2/2)";
-                        Thread.Sleep(250);
+                        if (skyblockConfig.ShimmerChallenge)
+                        {
+                            var variant = Main.rand.Next(3);
+
+                            variant = variant switch
+                            {
+                                0 => 41,
+                                1 => 43,
+                                _ => 44,
+                            };
+                            
+                            WorldGen.PlaceTile(Main.dungeonX - 1, Main.dungeonY, variant);
+                            WorldGen.PlaceTile(Main.dungeonX, Main.dungeonY, variant);
+                            WorldGen.PlaceTile(Main.dungeonX + 1, Main.dungeonY, variant);
+
+                            dungeonSuccess = true;
+                            progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (2/2)";
+                            Thread.Sleep(250);
+                        }
+                        else
+                        {
+                            WorldGen.MakeDungeon(Main.dungeonX, Main.dungeonY);
+                            dungeonSuccess = true;
+                            progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (2/2)";
+                            Thread.Sleep(250);
+                        }
                     }
                     catch (Exception)
                     {
@@ -236,6 +290,7 @@ namespace OneSkyBlock
                     }
                 }
             }
+
             Thread.Sleep(250);
             progress.Message = Language.GetTextValue("Mods.OneSkyBlock.WorldGen.FinishLoading");
             progress.Set(1f);
