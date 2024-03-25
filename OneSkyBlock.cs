@@ -9,6 +9,9 @@ using Terraria.ModLoader;
 using Terraria.Localization;
 using Terraria.WorldBuilding;
 using Terraria.GameContent.Generation;
+using System.Numerics;
+using ReLogic.Utilities;
+using Terraria.DataStructures;
 
 namespace OneSkyBlock
 {
@@ -126,6 +129,19 @@ namespace OneSkyBlock
             //tasks.Insert(genIndex + 1, new PassLegacy("Generating Temple", NewTemplePass, 1f));
         }
 
+        [Flags]
+        enum TF : byte
+        {
+            /// <summary>Cloud</summary>
+            C = 1,
+
+            /// <summary>Shimmer</summary>
+            S = C << 1,
+
+            /// <summary>Platform</summary>
+            P = S << 1
+        }
+
         private void ResetWorldPass(GenerationProgress progress, GameConfiguration config)
         {
             var skyblockConfig = ModContent.GetInstance<OneSkyBlockConfig>();
@@ -139,20 +155,42 @@ namespace OneSkyBlock
 
             if (skyblockConfig.ShimmerChallenge)
             {
-                WorldGen.PlaceTile(Main.spawnTileX, Main.spawnTileY, TileID.Platforms);
-
-                for (int x = Main.spawnTileX - 2; x <= Main.spawnTileX + 2; x++)
+                var tiles = new TF[,]
                 {
-                    WorldGen.PlaceTile(x, Main.spawnTileY + 2, TileID.Cloud);
-                }
+                    { TF.C, TF.S, TF.S, TF.S | TF.P, TF.S, TF.S, TF.C },
+                    { TF.C, TF.S, TF.S,    TF.S,     TF.S, TF.S, TF.C },
+                    { TF.C, TF.S, TF.S,    TF.S,     TF.S, TF.S, TF.C },
+                    { 0,    TF.C, TF.C,    TF.C,     TF.C, TF.C, 0 },
+                };
 
-                for (int x = Main.spawnTileX - 1; x <= Main.spawnTileX + 1; x++)
+                var xLength = tiles.GetLength(1);
+                var xOffset = xLength / 2;
+
+                for (int y = 0; y < tiles.GetLength(0); y++)
                 {
-                    WorldGen.PlaceTile(x, Main.spawnTileY + 1, TileID.ShimmerBlock);
-                }
+                    for (int x = 0; x < xLength; x++)
+                    {
+                        int x2 = Main.spawnTileX + x - xOffset;
+                        int y2 = Main.spawnTileY + y;
 
-                WorldGen.PlaceTile(Main.spawnTileX - 2, Main.spawnTileY + 1, TileID.ShimmerBlock);
-                WorldGen.PlaceTile(Main.spawnTileX + 2, Main.spawnTileY + 1, TileID.ShimmerBlock);
+                        var t = tiles[y, x];
+
+                        if (t.HasFlag(TF.C))
+                        {
+                            WorldGen.PlaceTile(x2, y2, TileID.Cloud);
+                        }
+
+                        if (t.HasFlag(TF.S))
+                        {
+                            WorldGen.PlaceLiquid(x2, y2, (byte)LiquidID.Shimmer, byte.MaxValue);
+                        }
+
+                        if (t.HasFlag(TF.P))
+                        {
+                            WorldGen.PlaceTile(x2, y2, TileID.Platforms);
+                        }
+                    }
+                }
             }
             else
             {
@@ -236,7 +274,34 @@ namespace OneSkyBlock
                 //tasks.Add(jungleTask1);
                 //tasks.Add(jungleTask2);
                 //ModLoader.TryGetMod("CalamityMod", out Mod CalamityMod);
-                WorldGen.makeTemple(dungeonSide == 1 ? Main.maxTilesX / 5 : (int)(Main.maxTilesX / 1.25), (int)Main.rockLayer);
+
+                var x = dungeonSide == 1 ? Main.maxTilesX / 5 : (int)(Main.maxTilesX / 1.25);
+                var y = (int)Main.rockLayer;
+
+                if (skyblockConfig.ShimmerChallenge)
+                {
+                    const int platformLength = 70;
+                    const int halfPlatformLength = platformLength / 2;
+
+                    x -= halfPlatformLength;
+
+                    for (int i = x; i < x + platformLength; i++)
+                    {
+                        WorldGen.PlaceTile(i, y, TileID.LihzahrdBrick);
+
+                        for (int j = y; j >= y - 1; j--)
+                        {
+                            WorldGen.PlaceWall(i, j - 1, WallID.LihzahrdBrickUnsafe);
+                        }
+                    }
+
+                    --y;
+                    WorldGen.Place3x2(x + halfPlatformLength, y, TileID.LihzahrdAltar);
+                }
+                else
+                {
+                    WorldGen.makeTemple(x, y);
+                }
             }
 
             if (skyblockConfig.GenerateDungeon)
@@ -260,14 +325,27 @@ namespace OneSkyBlock
 
                             variant = variant switch
                             {
-                                0 => 41,
-                                1 => 43,
-                                _ => 44,
+                                0 => TileID.BlueDungeonBrick,
+                                1 => TileID.GreenDungeonBrick,
+                                _ => TileID.PinkDungeonBrick,
                             };
-                            
-                            WorldGen.PlaceTile(Main.dungeonX - 1, Main.dungeonY, variant);
-                            WorldGen.PlaceTile(Main.dungeonX, Main.dungeonY, variant);
-                            WorldGen.PlaceTile(Main.dungeonX + 1, Main.dungeonY, variant);
+
+                            var wallType = variant switch
+                            {
+                                TileID.BlueDungeonBrick => Main.rand.NextBool() ? WallID.BlueDungeonSlabUnsafe : WallID.BlueDungeonTileUnsafe,
+                                TileID.GreenDungeonBrick => Main.rand.NextBool() ? WallID.GreenDungeonSlabUnsafe : WallID.GreenDungeonTileUnsafe,
+                                TileID.PinkDungeonBrick => Main.rand.NextBool() ? WallID.PinkDungeonSlabUnsafe : WallID.PinkDungeonTileUnsafe,
+                            };
+
+                            for (int x = Main.dungeonX - 1; x <= Main.dungeonX + 1; x++)
+                            {
+                                for (int y = Main.dungeonY; y >= Main.dungeonY - 0; y--)
+                                {
+                                    WorldGen.PlaceTile(x, y, variant);
+                                }
+                            }
+
+                            NPC.NewNPC(new EntitySource_WorldGen(), Main.dungeonX * 16 + 8, Main.dungeonY * 16, 37);
 
                             dungeonSuccess = true;
                             progress.Message = $"{Language.GetTextValue("Mods.OneSkyBlock.WorldGen.GenerateDungeon")} (2/2)";

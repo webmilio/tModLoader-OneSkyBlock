@@ -14,6 +14,8 @@ Mods: {
 			FinishLoading: 完成生成
 		}
 
+		// Conditions.DownedSkeletron: Skeletron must be defeated.
+
 		Configuration: {
 			WorldGenerationHeader: 世界生成设置[c/ff9eb4:(在创建世界时可能会中断)]
 			// ShimmerChallenge: Shimmer Challenge Enabled
