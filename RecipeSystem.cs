@@ -30,6 +30,25 @@ internal class RecipeSystem : ModSystem
         {
             DungeonBricks();
 
+            ItemID.Sets.ShimmerTransformToItem[ItemID.ClimbingClaws] = ItemID.ShoeSpikes;
+            ItemID.Sets.ShimmerTransformToItem[ItemID.ShoeSpikes] = ItemID.ClimbingClaws;
+
+            Recipe.Create(ItemID.ClayBlock, 1)
+                .AddIngredient(ItemID.MudBlock, 1)
+                .AddCondition(Condition.NearWater)
+                .Register();
+
+            Recipe.Create(ItemID.SiltBlock, 1)
+                .AddIngredient(ItemID.ClayBlock, 1)
+                .AddCondition(Condition.NearWater)
+                .Register();
+
+            Recipe.Create(ItemID.Granite, 1)
+                .AddIngredient(ItemID.StoneBlock, 5)
+                .AddIngredient(ItemID.Sapphire)
+                .AddIngredient(ItemID.Amethyst)
+                .Register();
+
             Recipe.Create(ItemID.LihzahrdBrick)
                 .AddIngredient(ItemID.StoneBlock, 5)
                 .AddIngredient(ItemID.LihzahrdPowerCell)
