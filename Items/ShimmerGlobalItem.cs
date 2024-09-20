@@ -20,7 +20,8 @@ internal class ShimmerGlobalItem : GlobalItem
         {
             case ItemID.LavaCrate or ItemID.LavaCrateHard:
                 var localized = Mod.GetLocalization("Conditions.DownedSkeletron");
-                var rule = ItemDropRule.ByCondition(new SimpleItemDropRuleCondition(localized, () => NPC.downedBoss3, ShowItemDropInUI.Always), ItemID.Hellstone, 2, 4, 10);
+                var rule = ItemDropRule.ByCondition(new SimpleItemDropRuleCondition(localized, () => NPC.downedBoss3, ShowItemDropInUI.Always), ItemID.Hellstone, 
+                    chanceDenominator: 2, minimumDropped: 4, maximumDropped: 10);
 
                 itemLoot.Add(rule);
                 break;

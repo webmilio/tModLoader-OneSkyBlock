@@ -431,3 +431,5 @@ FodyWeavers.xsd
 /obj/Debug/net6.0/OneSkyBlock.pdb
 /obj/Debug/net6.0/ref/OneSkyBlock.dll
 /obj/Debug/net6.0/refint/OneSkyBlock.dll
+/bin/Debug/net6.0/ReLogic.xml
+/obj/Release/net6.0/OneSkyBlock.assets.cache

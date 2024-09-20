@@ -60,6 +60,7 @@ namespace OneSkyBlock
         [DefaultValue(false)]
         [LabelKey("$Mods.OneSkyBlock.Configuration.ShimmerChallenge")]
         [TooltipKey("$Mods.OneSkyBlock.Configuration.ShimmerChallengeTooltip")]
+		[ReloadRequired]
 		public bool ShimmerChallenge { get; set; }
 
         [Header("$Mods.OneSkyBlock.Configuration.SkyblockSettingsHeader")]

@@ -33,6 +33,8 @@ internal class RecipeSystem : ModSystem
             ItemID.Sets.ShimmerTransformToItem[ItemID.ClimbingClaws] = ItemID.ShoeSpikes;
             ItemID.Sets.ShimmerTransformToItem[ItemID.ShoeSpikes] = ItemID.ClimbingClaws;
 
+            ItemID.Sets.ShimmerTransformToItem[ItemID.FrostDaggerfish] = ItemID.IceBlock;
+
             Recipe.Create(ItemID.ClayBlock, 1)
                 .AddIngredient(ItemID.MudBlock, 1)
                 .AddCondition(Condition.NearWater)
@@ -51,7 +53,7 @@ internal class RecipeSystem : ModSystem
 
             Recipe.Create(ItemID.LihzahrdBrick)
                 .AddIngredient(ItemID.StoneBlock, 5)
-                .AddIngredient(ItemID.LihzahrdPowerCell)
+                .AddIngredient(ItemID.LunarTabletFragment)
                 .AddTile(TileID.AdamantiteForge)
                 .AddCondition(Condition.InGraveyard)
                 .Register();

@@ -506,7 +506,14 @@ namespace OneSkyBlock
     {
         public override void PreUpdateNPCs() 
         {
-			int playerCount = ModContent.GetInstance<OneSkyBlockConfig>().OneBlockMultiplayer ? Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active) : 1;
+			var config = ModContent.GetInstance<OneSkyBlockConfig>();
+
+			if (config.ShimmerChallenge)
+			{
+				return;
+			}
+
+            int playerCount = config.OneBlockMultiplayer ? Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active) : 1;
 			//ChatHelper.BroadcastChatMessage(NetworkText.FromLiteral("plrCount: " + playerCount + " count: " + Main.player.Count(p => p.whoAmI < Main.maxPlayers && p.active)), Color.White);
 			for (int p = 0; p < playerCount; p++)
 			{
