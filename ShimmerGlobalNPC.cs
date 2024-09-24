@@ -19,7 +19,28 @@ internal class ShimmerGlobalNPC : GlobalNPC
         switch (npc.type)
         {
             case NPCID.Angler:
-                npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 50, 100));
+                npcLoot.Add(ItemDropRule.Common(ItemID.FrostDaggerfish, 1, 100, 200));
+                break;
+        }
+    }
+
+    public override void ModifyShop(NPCShop shop)
+    {
+        var config = ModContent.GetInstance<OneSkyBlockConfig>();
+
+        if (!config.ShimmerChallenge)
+        {
+            return;
+        }
+
+        switch (shop.NpcType)
+        {
+            case NPCID.Merchant:
+                if (config.MerchantWorkbench)
+                {
+                    shop.Add(new NPCShop.Entry(ItemID.WorkBench));
+                }
+
                 break;
         }
     }

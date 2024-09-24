@@ -63,6 +63,13 @@ namespace OneSkyBlock
 		[ReloadRequired]
 		public bool ShimmerChallenge { get; set; }
 
+		[JsonIgnore]
+		[DefaultValue(false)]
+		[LabelKey("$Mods.OneSkyBlock.Configuration.MerchantWorkbench")]
+        [TooltipKey("$Mods.OneSkyBlock.Configuration.MerchantWorkbenchTooltip")]
+        [ReloadRequired]
+        public bool MerchantWorkbench { get; set; }
+
         [Header("$Mods.OneSkyBlock.Configuration.SkyblockSettingsHeader")]
 		[JsonIgnore]
 		[DefaultValue(5)]

@@ -24,6 +24,12 @@ Mods: {
 				Turning this ON will enable the Shimmer Challenge on newly created worlds.
 				You must create a character on medium-core for this challenge to be possible.
 				''' */
+			// MerchantWorkbench: Merchant Sells Workbench
+			/* MerchantWorkbenchTooltip:
+				'''
+				Adds the wooden workbench to the Merchant's shop.
+				This is not meant to be balanced but to make wood easier to obtain.
+				''' */
 			GenerateDungeon: "[i:3205] 地牢已启用"
 			GenerateDungeonTooltip: 打开这个选项将使地牢在新创建的世界上生成。建议在关闭时有一个提供地牢相关物品的MOD。
 			GenerateTemple: "[i:3208] 丛林神庙已启用"
